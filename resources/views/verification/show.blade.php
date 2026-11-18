@@ -3,12 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b2a5b">
     <meta name="robots" content="noindex">
     <title>Verifikasi Tanda Tangan & Rapor</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
 <div class="verify">
+    <div class="verify-banner">
+        <b>{{ $data['lembaga']['nama'] ?? 'PKBM AL-QUDWAH' }}</b>
+        <small>Sistem Informasi Verifikasi E-Raport & Tanda Tangan Elektronik</small>
+    </div>
     @if(!$found)
         <div class="verify-status bad">@icon('x-circle', 'ic ic-lg')<h1>TIDAK VALID</h1><p>Kode verifikasi tidak ditemukan. Dokumen ini tidak dapat dinyatakan asli.</p></div>
     @else

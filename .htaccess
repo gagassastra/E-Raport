@@ -18,7 +18,8 @@
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
 
-    # Arahkan aset statis (css, js, build, vendor chart) ke folder public/ saat DocumentRoot berada di root project
+    # Arahkan aset statis (css, js, build, image, vendor chart) ke lokasi berkas saat DocumentRoot berada di root project
+    RewriteRule ^image/(.*)$ Image/$1 [L]
     RewriteRule ^(css|js|build)/(.*)$ public/$1/$2 [L]
     RewriteRule ^vendor/chart\.umd\.min\.js$ public/vendor/chart.umd.min.js [L]
 

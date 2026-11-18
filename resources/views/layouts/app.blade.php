@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#0b2a5b">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Dasbor') — E-Raport {{ $school->nama_lembaga ?? 'PKBM AL-QUDWAH' }}</title>
+    <link rel="icon" type="image/png" href="{{ route('school.logo') }}">
+    <link rel="apple-touch-icon" href="{{ route('school.logo') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
@@ -13,7 +15,7 @@
 <div class="app">
     <aside class="sidebar" id="sidebar">
         <div class="brand">
-            @if($school->logo_path)
+            @if($school->hasLogo())
                 <img src="{{ route('school.logo') }}?v={{ $school->updated_at?->timestamp }}" alt="Logo">
             @else
                 <span class="brand-logo">PK</span>
@@ -35,6 +37,9 @@
     <div class="main">
         <header class="topbar">
             <button class="icon-btn menu-btn" data-nav-toggle aria-label="Menu">@icon('menu')</button>
+            @if($school->hasLogo())
+                <img class="topbar-logo" src="{{ route('school.logo') }}?v={{ $school->updated_at?->timestamp }}" alt="Logo">
+            @endif
             <div>
                 <div class="page-title">@yield('title', 'Dasbor')</div>
                 <div class="ctx">

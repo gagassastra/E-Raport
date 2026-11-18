@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#0b2a5b">
     <title>Masuk — E-Raport {{ $school->nama_lembaga }}</title>
+    <link rel="icon" type="image/png" href="{{ route('school.logo') }}">
+    <link rel="apple-touch-icon" href="{{ route('school.logo') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
 <div class="auth">
     <section class="auth-hero">
         <div class="brand">
-            @if($school->logo_path)<img src="{{ route('school.logo') }}" alt="Logo">@else<span class="brand-logo">PK</span>@endif
+            @if($school->hasLogo())<img src="{{ route('school.logo') }}" alt="Logo">@else<span class="brand-logo">PK</span>@endif
             <div><b>{{ $school->nama_lembaga }}</b><small>{{ $school->jenis_lembaga }}</small></div>
         </div>
         <div style="position:relative;z-index:1">

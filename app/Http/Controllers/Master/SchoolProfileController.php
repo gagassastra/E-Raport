@@ -97,10 +97,17 @@ class SchoolProfileController extends Controller
     public function logo()
     {
         $school = SchoolProfile::current();
-        abort_unless($school->logo_path && Storage::disk('local')->exists($school->logo_path), 404);
-        $mime = Storage::disk('local')->mimeType($school->logo_path) ?: 'image/png';
+        if ($school->logo_path && Storage::disk('local')->exists($school->logo_path)) {
+            $mime = Storage::disk('local')->mimeType($school->logo_path) ?: 'image/png';
+            $bytes = Storage::disk('local')->get($school->logo_path);
+        } elseif ($defaultFile = SchoolProfile::defaultLogoFile()) {
+            $mime = 'image/png';
+            $bytes = file_get_contents($defaultFile);
+        } else {
+            abort(404);
+        }
 
-        return response(Storage::disk('local')->get($school->logo_path), 200, [
+        return response($bytes, 200, [
             'Content-Type' => $mime,
             'Cache-Control' => 'public, max-age=3600',
             'X-Content-Type-Options' => 'nosniff',

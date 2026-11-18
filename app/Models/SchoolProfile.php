@@ -35,4 +35,29 @@ class SchoolProfile extends Model
 
         return implode(', ', $parts);
     }
+
+    public static function defaultLogoFile(): ?string
+    {
+        foreach ([
+            base_path('Image/logo.png'),
+            base_path('image/logo.png'),
+            public_path('image/logo.png'),
+            public_path('Image/logo.png'),
+        ] as $candidate) {
+            if (is_file($candidate)) {
+                return $candidate;
+            }
+        }
+
+        return null;
+    }
+
+    public function hasLogo(): bool
+    {
+        if ($this->logo_path && \Illuminate\Support\Facades\Storage::disk('local')->exists($this->logo_path)) {
+            return true;
+        }
+
+        return static::defaultLogoFile() !== null;
+    }
 }

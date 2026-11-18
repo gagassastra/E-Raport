@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cetak Rapor</title>
+    <link rel="icon" type="image/png" href="{{ route('school.logo') }}">
     <style>
         @page { size: A4 portrait; margin: 10mm 12mm; }
         body { margin: 0; background: #e9edf3; font-family: Helvetica, Arial, sans-serif; }

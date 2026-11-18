@@ -187,6 +187,9 @@ class ReportDataBuilder
                 $bytes = PngNormalizer::toRgbPng($bytes);
             }
             $logo = 'data:'.$mime.';base64,'.base64_encode($bytes);
+        } elseif ($defaultFile = SchoolProfile::defaultLogoFile()) {
+            $bytes = PngNormalizer::toRgbPng(file_get_contents($defaultFile));
+            $logo = 'data:image/png;base64,'.base64_encode($bytes);
         }
 
         return [

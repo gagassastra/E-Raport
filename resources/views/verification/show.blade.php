@@ -6,13 +6,18 @@
     <meta name="theme-color" content="#0b2a5b">
     <meta name="robots" content="noindex">
     <title>Verifikasi Tanda Tangan & Rapor</title>
+    <link rel="icon" type="image/png" href="{{ route('school.logo') }}">
+    <link rel="apple-touch-icon" href="{{ route('school.logo') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
 </head>
 <body>
 <div class="verify">
     <div class="verify-banner">
-        <b>{{ $data['lembaga']['nama'] ?? 'PKBM AL-QUDWAH' }}</b>
-        <small>Sistem Informasi Verifikasi E-Raport & Tanda Tangan Elektronik</small>
+        <img class="verify-logo" src="{{ route('school.logo') }}" alt="Logo">
+        <div>
+            <b>{{ $data['lembaga']['nama'] ?? 'PKBM AL-QUDWAH' }}</b>
+            <small>Sistem Informasi Verifikasi E-Raport & Tanda Tangan Elektronik</small>
+        </div>
     </div>
     @if(!$found)
         <div class="verify-status bad">@icon('x-circle', 'ic ic-lg')<h1>TIDAK VALID</h1><p>Kode verifikasi tidak ditemukan. Dokumen ini tidak dapat dinyatakan asli.</p></div>

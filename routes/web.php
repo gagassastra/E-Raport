@@ -67,7 +67,10 @@ Route::middleware(['auth', 'active', 'password.fresh'])->group(function () {
         Route::get('/catatan/{student}/edit', [NoteController::class, 'edit'])->middleware('permission:notes.input')->name('notes.edit');
         Route::put('/catatan/{student}', [NoteController::class, 'update'])->middleware('permission:notes.input')->name('notes.update');
 
-        Route::get('/rekap-nilai', [AcademicOverviewController::class, 'recap'])->middleware('permission:scores.view')->name('recap');
+        Route::get('/rekap-nilai', [AcademicOverviewController::class, 'recap'])->middleware('permission:scores.view,scores.input,reports.prepare')->name('recap');
+        Route::get('/rekap-nilai/excel', [AcademicOverviewController::class, 'exportLegerExcel'])->middleware('permission:scores.view,scores.input,reports.prepare')->name('recap.excel');
+        Route::get('/rekap-nilai/pdf', [AcademicOverviewController::class, 'exportLegerPdf'])->middleware('permission:scores.view,scores.input,reports.prepare')->name('recap.pdf');
+        Route::get('/rekap-nilai/cetak', [AcademicOverviewController::class, 'printLeger'])->middleware('permission:scores.view,scores.input,reports.prepare')->name('recap.print');
         Route::get('/bobot-penilaian', [AcademicOverviewController::class, 'weightsEdit'])->middleware('permission:weights.manage')->name('weights.edit');
         Route::put('/bobot-penilaian', [AcademicOverviewController::class, 'weightsUpdate'])->middleware('permission:weights.manage')->name('weights.update');
     });

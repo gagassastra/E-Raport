@@ -5,6 +5,8 @@
     <div><h1>Rapor Kelas</h1><p>Pantau kelengkapan, ajukan, sahkan, dan cetak rapor per kelas dan semester.</p></div>
     @if($class && $semester)
     <div class="btn-group">
+        <a class="btn green" href="{{ route('academic.recap.excel', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('download') Leger Excel</a>
+        <a class="btn sky" href="{{ route('academic.recap.pdf', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('download') Leger PDF</a>
         <a class="btn light" target="_blank" href="{{ route('reports.class.print', [$class, 'semester_id' => $semester->id]) }}">@icon('print') Cetak Massal</a>
         <a class="btn light" href="{{ route('reports.class.pdf', [$class, 'semester_id' => $semester->id]) }}">@icon('download') PDF Gabungan</a>
         <a class="btn light" href="{{ route('reports.class.zip', [$class, 'semester_id' => $semester->id]) }}">@icon('archive') ZIP</a>

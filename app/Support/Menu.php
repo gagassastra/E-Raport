@@ -22,12 +22,13 @@ class Menu
                 ['Input Nilai', 'academic.scores.index', 'edit', ['scores.input'], 'academic.scores.*'],
                 ['Absensi', 'academic.attendance.index', 'clipboard', ['attendance.input'], 'academic.attendance.*'],
                 ['Catatan Wali Kelas', 'academic.notes.index', 'pen', ['notes.input'], 'academic.notes.*'],
+                ['Leger Nilai', 'academic.recap', 'chart', ['scores.input', 'reports.prepare'], 'academic.recap*'],
             ]],
             ['label' => 'Rapor', 'items' => [
                 ['Rapor Kelas', 'reports.index', 'file-check', ['reports.prepare', 'reports.view_all', 'reports.approve'], 'reports.index'],
                 ['Titimangsa Rapor', 'reports.settings', 'calendar', ['reports.settings'], 'reports.settings*'],
                 ['Arsip Rapor', 'reports.archive', 'archive', ['reports.view_all', 'reports.prepare'], 'reports.archive'],
-                ['Rekap Nilai', 'academic.recap', 'chart', ['scores.view'], 'academic.recap'],
+                ['Rekap & Leger Nilai', 'academic.recap', 'chart', ['scores.view'], 'academic.recap*'],
             ]],
             ['label' => 'Data Induk', 'items' => [
                 ['Data Lembaga', 'master.school.edit', 'building', ['school.manage'], 'master.school.*'],
@@ -55,7 +56,10 @@ class Menu
             foreach ($g['items'] as [$label, $route, $icon, $perms, $pattern]) {
                 if ($perms === null || $user->hasAnyPermission($perms)) {
                     // Super Admin tidak perlu portal peserta didik / menu wali kelas
-                    if ($user->isSuperAdmin() && in_array($route, ['portal.reports', 'academic.myclass', 'academic.scores.index', 'academic.attendance.index', 'academic.notes.index'], true)) {
+                    if ($user->isSuperAdmin() && in_array($route, ['portal.reports', 'academic.myclass', 'academic.scores.index', 'academic.attendance.index', 'academic.notes.index', 'academic.recap'], true) && $g['label'] !== 'Rapor') {
+                        continue;
+                    }
+                    if ($g['label'] === 'Wali Kelas' && $route === 'academic.recap' && $user->hasPermission('scores.view')) {
                         continue;
                     }
                     $items[] = compact('label', 'route', 'icon', 'pattern');

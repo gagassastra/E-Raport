@@ -8,6 +8,8 @@
         <a class="btn sky" href="{{ route('academic.scores.index', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('edit') Input Nilai</a>
         <a class="btn light" href="{{ route('academic.attendance.index', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('clipboard') Absensi</a>
         <a class="btn light" href="{{ route('academic.notes.index', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('pen') Catatan</a>
+        <a class="btn light" href="{{ route('academic.recap', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('chart') Leger Nilai</a>
+        <a class="btn green" href="{{ route('academic.recap.excel', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('download') Unduh Leger Excel</a>
         <a class="btn light" href="{{ route('reports.index', ['kelas_id' => $class->id, 'semester_id' => $semester->id]) }}">@icon('file-check') Rapor Kelas</a>
     </div>
     @endif

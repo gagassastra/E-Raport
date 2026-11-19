@@ -1,7 +1,17 @@
 @extends('layouts.app')
 @section('title', 'Input Nilai')
 @section('content')
-<div class="page-head"><div><h1>Input Nilai</h1><p>Isi nilai Sumatif, ASTS, dan ASAS untuk seluruh mata pelajaran kelas yang Anda ampu. Nilai Akhir dihitung otomatis setelah ketiga komponen terisi.</p></div></div>
+<div class="page-head">
+    <div>
+        <h1>Input Nilai</h1>
+        <p>Isi nilai Sumatif, ASTS, dan ASAS untuk seluruh mata pelajaran kelas yang Anda ampu. Nilai Akhir dihitung otomatis setelah ketiga komponen terisi.</p>
+    </div>
+    @if($class && $semester && $subject && $rows->isNotEmpty())
+        <div class="btn-group">
+            <a class="btn green" href="{{ route('academic.scores.export', ['semester_id' => $semester->id, 'kelas_id' => $class->id, 'mapel_id' => $subject->id]) }}">@icon('download') Export Excel (.xlsx)</a>
+        </div>
+    @endif
+</div>
 
 <div class="card">
     <form class="filters" method="GET">
@@ -17,6 +27,29 @@
     @elseif($rows->isEmpty())
         <x-empty icon="users" text="Belum ada peserta didik dalam kelas ini." />
     @else
+    @unless($readonly)
+    <div class="card-b" style="padding:12px 18px;border-bottom:1px solid var(--sky-200);background:#f7faff">
+        <form method="POST" action="{{ route('academic.scores.import') }}" enctype="multipart/form-data" class="flex items-center between wrap gap">
+            @csrf
+            <input type="hidden" name="semester_id" value="{{ $semester->id }}">
+            <input type="hidden" name="kelas_id" value="{{ $class->id }}">
+            <input type="hidden" name="mapel_id" value="{{ $subject->id }}">
+            <div>
+                <div class="small" style="color:var(--navy);display:flex;align-items:center;gap:6px"><b>@icon('file-check') Pengisian Nilai via Microsoft Excel (.xlsx)</b></div>
+                <div class="muted small">Unduh template Excel mata pelajaran ini, isi nilai di Excel, lalu unggah kembali berkasnya untuk mengisi nilai secara massal.</div>
+            </div>
+            <div class="flex gap items-center wrap">
+                <a class="btn light sm" href="{{ route('academic.scores.export', ['semester_id' => $semester->id, 'kelas_id' => $class->id, 'mapel_id' => $subject->id]) }}">@icon('download') Unduh Template / Export Excel</a>
+                <label class="check small" title="Jika kolom Deskripsi di Excel dikosongkan, sistem akan mengisi deskripsi rekomendasi otomatis sesuai Nilai Akhir">
+                    <input type="checkbox" name="auto_deskripsi" value="1" checked>
+                    <span>Auto-deskripsi jika kosong</span>
+                </label>
+                <input class="input" type="file" name="file_excel" accept=".xlsx,.csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv" required style="max-width:240px;padding:5px 8px;font-size:12.5px">
+                <button class="btn sky sm" type="submit">@icon('upload') Import Excel</button>
+            </div>
+        </form>
+    </div>
+    @endunless
     <form method="POST" action="{{ route('academic.scores.store') }}">@csrf
         <input type="hidden" name="semester_id" value="{{ $semester->id }}"><input type="hidden" name="kelas_id" value="{{ $class->id }}"><input type="hidden" name="mapel_id" value="{{ $subject->id }}">
         <div class="card-b" style="padding:10px 18px;border-bottom:1px solid var(--line)" >

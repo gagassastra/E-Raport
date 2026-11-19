@@ -59,6 +59,8 @@ Route::middleware(['auth', 'active', 'password.fresh'])->group(function () {
         Route::get('/kelas-saya', [AcademicOverviewController::class, 'myClass'])->middleware('permission:scores.input,reports.prepare')->name('myclass');
         Route::get('/nilai', [ScoreController::class, 'index'])->middleware('permission:scores.input')->name('scores.index');
         Route::post('/nilai', [ScoreController::class, 'store'])->middleware('permission:scores.input')->name('scores.store');
+        Route::get('/nilai/ekspor', [ScoreController::class, 'export'])->middleware('permission:scores.input')->name('scores.export');
+        Route::post('/nilai/impor', [ScoreController::class, 'import'])->middleware('permission:scores.input')->name('scores.import');
         Route::get('/absensi', [AttendanceController::class, 'index'])->middleware('permission:attendance.input')->name('attendance.index');
         Route::post('/absensi', [AttendanceController::class, 'store'])->middleware('permission:attendance.input')->name('attendance.store');
         Route::get('/catatan', [NoteController::class, 'index'])->middleware('permission:notes.input')->name('notes.index');

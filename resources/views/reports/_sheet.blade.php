@@ -188,7 +188,6 @@
                         @endif
                     </div>
                     <div class="nm">{{ $r['kepala']['nama'] }}</div>
-                    @if(!empty($r['kepala']['identitas']))<div>{{ $r['kepala']['identitas_label'] }}: {{ $r['kepala']['identitas'] }}</div>@endif
                 </td>
             </tr>
         </table>
@@ -313,7 +312,6 @@
                     @endif
                 </div>
                 <div class="nm">{{ $r['kepala']['nama'] }}</div>
-                @if(!empty($r['kepala']['identitas']))<div>{{ $r['kepala']['identitas_label'] }}: {{ $r['kepala']['identitas'] }}</div>@endif
             </td>
             <td>
                 <div>{{ $r['titimangsa']['teks'] ?? '[Titimangsa belum diatur]' }}</div>
@@ -324,7 +322,6 @@
                     @endif
                 </div>
                 <div class="nm">{{ $r['wali']['nama'] }}</div>
-                @if(!empty($r['wali']['identitas']))<div>{{ $r['wali']['identitas_label'] }}: {{ $r['wali']['identitas'] }}</div>@endif
             </td>
         </tr></table>
 

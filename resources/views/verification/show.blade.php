@@ -72,7 +72,6 @@
                         </div>
                         <div style="font-weight:700;color:var(--navy);text-decoration:underline">{{ $sg['nama'] }}</div>
                         <div class="small muted">{{ $sg['jabatan'] }}</div>
-                        @if(!empty($sg['identitas']))<div class="small muted">{{ $sg['identitas_label'] }}: {{ $sg['identitas'] }}</div>@endif
                         @if(!empty($sg['waktu']))
                             <div class="mt"><span class="badge green">Ditandatangani {{ \Carbon\Carbon::parse($sg['waktu'])->timezone(config('app.timezone'))->translatedFormat('j M Y H:i') }} WIB</span></div>
                         @endif
